@@ -13,3 +13,5 @@ https://success.mindtouch.com/Documentation/Retired/Platform_Installation_Guide/
     chown www-data www
     chgrp www-data www
 
+4. 如果在登录web的时候出现PHPerror，则很有可能是PHP 5.2和5.3不兼容所致，解决方案：
+   http://jesus.tw/Fixing_Mediawiki_1.6_when_upgrading_PHP_from_5.2_to_5.3
