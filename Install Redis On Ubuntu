@@ -1,0 +1,127 @@
+Install Redis On Ubuntu 12.04
+
+
+1.下载安装包 wget http://download.redis.io/releases/redis-2.8.11.tar.gz
+
+2. 编译源程序  
+	1> tarzxvf  redis-实际文件名
+	2>cd redis-实际文件名
+	3>make
+	4>cd src && make install
+
+3. 移动文件，便于管理
+	1>mkdir -p /usr/local/redis/bin  
+	2>mkdir -p /usr/local/redis/etc  
+	3>mkdir -p /usr/local/redis/log    
+	3>mv /root/redis-实际文件名/redis.conf /usr/local/redis/etc
+	4>cd /root/redis-实际文件名/src
+	5>mv mkreleasehdr.sh redis-benchmark redis-check-aof  redis-sentinel redis-check-dump redis-cli redis-server /usr/local/redis/bin
+
+4.启动Redis服务(运行此步之前要先配置conf文件，否则不会在后台运行，占用前台session):
+	/usr/local/redis/bin/redis-server  /usr/local/redis/etc/redis.conf  //要加载默认的服务；redis的默认端口是6379  MySQL：3306 Mongodb：23017 28017
+
+5. 客户端连接
+	/usr/local/redis/bin/redis-cli
+
+6. 停止Redis实例
+pkill redis-server   //kill -9 或者kill all
+
+注： 
+后台启动redis需要更改配置文件：daemonzie 设置为yes
+查看进程能否启动: ps -ef | grep redis
+查看端口号是否被使用 : netstat -tunpl | grep 6379
+
+
+//////////////////////////Redis 在Ubuntu 中自启动配置/////////////////////////
+
+1. 编写redisd脚本
+2. 移动响应文件和conf问件到相应目录下
+        mv  redisd /etc/init.d/
+    chmod +x /etc/init.d/redisd
+    cp /usr/local/redis/etc/redis.conf /etc
+3. 设置开机启动
+    update-rc.d redisd defaults
+4. 测试启动：
+    /etc/init.d/redisd start
+
+///////////////////////////redisd 脚本//////////////////////////////////////////
+#!/bin/sh
+#chkconfig: 345 86 14
+#description: Startup and shutdown script for Redis
+
+PROGDIR=/usr/local/redis/bin
+PROGNAME=redis-server
+DAEMON=$PROGDIR/$PROGNAME
+CONFIG=/usr/local/redis/etc/redis.conf
+PIDFILE=/var/run/redis.pid
+DESC="redis daemon"
+SCRIPTNAME=/etc/init.d/redisd
+ 
+start()
+{
+	if test -x $DAEMON
+	then
+        echo -e "Starting $DESC: $PROGNAME"
+		if $DAEMON $CONFIG
+		then
+			echo -e "OK"
+		else
+			echo -e "failed"
+		fi
+	else
+		echo -e "Couldn't find Redis Server ($DAEMON)"
+	fi
+}
+ 
+stop()
+{
+	if test -e $PIDFILE
+	then
+		echo -e "Stopping $DESC: $PROGNAME"
+		if kill `cat $PIDFILE`
+		then
+			echo -e "OK"
+		else
+			echo -e "failed"
+		fi
+	else
+		echo -e "No Redis Server ($DAEMON) running"
+	fi
+}
+ 
+restart()
+{
+    echo -e "Restarting $DESC: $PROGNAME"
+    stop
+	start
+}
+
+list()
+{
+	ps aux | grep $PROGNAME
+}
+ 
+case $1 in
+	start)
+		start
+        ;;
+	stop)
+        stop
+        ;;
+	restart)
+        restart
+        ;;
+	list)
+        list
+        ;;
+
+	*)
+        echo "Usage: $SCRIPTNAME {start|stop|restart|list}" >&2
+        exit 1
+        ;;
+esac 
+exit 0
+
+
+
+
