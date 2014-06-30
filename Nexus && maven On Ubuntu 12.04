@@ -1,0 +1,31 @@
+Ubuntu安装nexus && maven
+
+搭建Maven
+1. 下载maven，然后解压至/usr/local/maven下：
+2. 编辑profile文件，如下
+export MAVEN_HOME=/usr/local/maven/apache-maven-3.2.1/
+export PATH=$PATH:$MAVEN_HOME/bin
+3.  重置profile
+source /etc/profile
+
+搭建nexus:
+1. 下载后解压至/usr/local/nexus
+2. ln -s nexus-2.8.1-01 nexus
+3. 修改nexus/bin/nexus配置
+    NEXUS_HOME="/usr/local/nexus/nexus"
+    RUN_AS_USER=root
+4. 设置开机自动启动
+    cp nexus /etc/init.d
+    chmod 755 nexus
+    update-rc.d nexus defaults
+
+
+访问：
+1. http://101.226.243.186:8081/nexus
+   用户名：admin
+   密码：admin123    
+
+http://my.oschina.net/stevenleesmart/blog/160515
+https://support.sonatype.com/entries/20673251-Installing-Nexus-OSS
+
+
