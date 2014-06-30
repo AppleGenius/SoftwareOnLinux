@@ -1,0 +1,29 @@
+RabbitMQ On Ubuntu 12.04:
+
+1. Intruduction:
+  
+  MQ全称为Message Queue, 消息队列（MQ）是一种应用程序对应用程序的通信方法。应用程序通过读写出入队列的消息（针对应用程序的
+数据）来通信，而无需专用连接来链接它们。消息传递指的是程序之间通过在消息中发送数据进行通信，而不是通过直接调用彼此来通信，
+直接调用通常是用于诸如远程过程调用的技术。排队指的是应用程序通过 队列来通信。队列的使用除去了接收和发送应用程序同时执行的要
+求。其中较为成熟的MQ产品有IBM WEBSPHERE MQ。
+  MQ是消费-生产者模型的一个典型的代表，一端往消息队列中不断写入消息，而另一端则可以读取或者订阅队列中的消息。
+MQ和JMS类似，但不同的是JMS是SUN JAVA消息中间件服务的一个标准和API定义，而MQ则是遵循了AMQP协议的具体实现和产品。
+  
+2. Install On Ubuntu 12.04：
+   
+  a.参考官方教程：http://www.rabbitmq.com/install-debian.html（亲测可用）
+  
+  b.由于rabbitmq需要erlang等相关很多的依赖包，所以不建议下载deb文件手动安装，会很麻烦，前列推荐apt方式安装
+  
+  c.检查rabbitmq的服务状态: invoke-rc.d rabbitmq-server stop/start/status .....
+  
+  d.RabbitMQ新版本会更在默认的logging位置，详情参看官方manual中的最后一项logging.
+  
+3. 配置Web端的RabbitMQ管理界面：
+  
+  a.开启插件：$:rabbitmq-plugins enable rabbitmq_management
+  b.重启 rabbitmq-server 服务: $ invoke-rc.d rabbitmq-server restart
+  c.通过查看端口是否被监听: netatat -tunpl 
+  d.创建 web 管理用户:rabbitmqctl add_user admin admin_passwd
+  e.设置 web 管理用户的角色:rabbitmqctl set_user_tags admin admin_role
+  f.查看设置的用户是否正确:rabbitmqctl list_users
