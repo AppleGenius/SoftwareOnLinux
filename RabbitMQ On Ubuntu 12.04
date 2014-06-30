@@ -19,7 +19,7 @@ MQ和JMS类似，但不同的是JMS是SUN JAVA消息中间件服务的一个标�
   
   d.RabbitMQ新版本会更在默认的logging位置，详情参看官方manual中的最后一项logging.
   
-3. 配置Web端的RabbitMQ管理界面：
+3. 配置Web端的RabbitMQ管理界面：参考：http://wenku.baidu.com/link?url=gamGc61tLpqzycE9Yn42rXvoU8BUX0_cxOPoJZDC66rMIxWkOe6RwlckgXIoY1jnZq_VNyZsMWT1ps-iiktHJVXBARVOlQ1FKTVk4tm8a3C
   
   a.开启插件：$:rabbitmq-plugins enable rabbitmq_management
   b.重启 rabbitmq-server 服务: $ invoke-rc.d rabbitmq-server restart
