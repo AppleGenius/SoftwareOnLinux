@@ -1,0 +1,15 @@
+官方手册：
+https://success.mindtouch.com/Documentation/Retired/Platform_Installation_Guide/080Installing_from_source
+
+1. 第一步Install Prerequisites中，依赖包mysql中去掉版本号即可，变成mysql-server
+
+2. 在Download Bits过程中一定要在 http://sourceforge.net/projects/dekiwiki网站下载最新版的source文件，否则网站无法运行，
+   不要用手册中的0.9版本！！！其他操作都不变
+   
+3. 在Install Trusted Roots Certificates 步骤中有两个需要注意的地方:
+  a.首先安装mono-devel   apt-get install mono-devel
+  b.在执行mozroots --import --sync语句的时候java会抛异常，解决方案：
+    cd /var
+    chown www-data www
+    chgrp www-data www
+
