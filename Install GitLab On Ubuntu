@@ -1,0 +1,17 @@
+特别注意：！！！！！！！！！！
+
+0. 官方安装文档：https://github.com/gitlabhq/gitlabhq/blob/7-0-stable/doc/install/installation.md
+
+1. 安装之前一定要手动修改分支选项，默认是3.0最老的版本，在安装过程中会有很多问题，应该选择最新的7.0 stable分支，这样可以避免很多不必要的麻烦。之前出现很多问题都是这个引起的，一定要修改！
+
+2. 第一步安装git的时候要修改git版本，最好2.0，然后修改Git的路径，在后面会有介绍
+
+3. 第二步安装Ruby相关组件的时候要修改为阿里源，最主要的在第5步Install Gems时后不妨碍为阿里源会有问题，方法见：http://110.75.120.11/
+
+4. 在第4步安装数据库最好不要使用Mysql，使用7.0默认的postgresql。
+
+5. 在第五步Clone the Source时候一定要注意是不是7.0stable master
+
+6. 注意最后可以删除nigix的default页面（可选）
+
+7. 在云主机上要默认修改apache的默认监听端口。/etc/apache2/ports.conf
