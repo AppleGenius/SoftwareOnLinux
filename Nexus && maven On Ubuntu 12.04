@@ -21,7 +21,7 @@ source /etc/profile
 
 
 访问：
-1. http://101.226.243.186:8081/nexus
+1. http://IP:8081/nexus
    用户名：admin
    密码：admin123    
 
